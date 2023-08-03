@@ -32,8 +32,21 @@ const socials = [
   },
 ];
 
+const links = [
+  {
+    text: "Projects",
+    url: "projects",
+  },
+  {
+    text: "Contact Me",
+    url: "contact-me",
+  },
+];
+
 const Header = () => {
-  const handleClick = (anchor) => () => {
+
+  const handleClick = (anchor) => (e) => {
+    anchor === "contact-me" ? anchor = "contactme" : anchor;
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
@@ -42,7 +55,7 @@ const Header = () => {
         block: "start",
       });
     }
-  };
+  }
 
   return (
     <Box
@@ -64,11 +77,33 @@ const Header = () => {
           alignItems="center"
         >
           <nav>
-            {/* Add social media links based on the `socials` data */}
+            <HStack spacing={6}>
+              {/* Add social media links based on the `socials` data */
+                socials.map((social) => (
+                  <a
+                    key={social.url}
+                    href={social.url}
+                    target="_blank" rel="noreferrer"
+                  >
+                    <FontAwesomeIcon icon={social.icon} size='2x' />
+                  </a>
+                ))
+              }
+            </HStack>
           </nav>
           <nav>
-            <HStack spacing={8}>
-              {/* Add links to Projects and Contact me section */}
+            <HStack spacing={6}>
+              {/* Add links based on the `links` data */
+                links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={`/#${link.url}`}
+                    onClick={handleClick(link.url)}
+                  >
+                    {link.text}
+                  </a>
+                ))
+              }
             </HStack>
           </nav>
         </HStack>
