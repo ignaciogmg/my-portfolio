@@ -22,9 +22,21 @@ const ContactMeSection = () => {
   const { onOpen } = useAlertContext();
 
   const formik = useFormik({
-    initialValues: {},
-    onSubmit: (values) => { },
-    validationSchema: Yup.object({}),
+    initialValues: {
+      firstName: "",
+      email: "",
+      type: "",
+      comment: "",
+    },
+    onSubmit: (values) => {
+      submit("/#contact-me", values);
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      type: Yup.string().optional(),
+      comment: Yup.string().min(25, "Must be at least 25 characters").required("Required"),
+    }),
   });
 
   return (
@@ -35,7 +47,7 @@ const ContactMeSection = () => {
       spacing={8}
     >
       <VStack w="1024px" p={32} alignItems="flex-start">
-        <Heading as="h1" id="contactme-section">
+        <Heading as="h1" id="contact-me">
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">

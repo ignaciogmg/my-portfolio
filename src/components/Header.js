@@ -8,6 +8,7 @@ import {
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const socials = [
   {
@@ -45,9 +46,22 @@ const links = [
 
 const Header = () => {
 
+  const scrollPosition = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.getElementById("header");
+      scrollPosition.current < window.scrollY
+        ? header.style.transform = "translateY(-200px)"
+        : header.style.transform = "translateY(0)";
+      scrollPosition.current = window.scrollY
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollPosition]);
+
   const handleClick = (anchor) => (e) => {
-    anchor === "contact-me" ? anchor = "contactme" : anchor;
-    const id = `${anchor}-section`;
+    const id = `${anchor}`;
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
@@ -59,6 +73,7 @@ const Header = () => {
 
   return (
     <Box
+      id="header"
       position="fixed"
       top={0}
       left={0}
@@ -68,6 +83,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      zIndex={1000}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
@@ -80,13 +96,13 @@ const Header = () => {
             <HStack spacing={6}>
               {/* Add social media links based on the `socials` data */
                 socials.map((social) => (
-                  <a
+                  <Link
                     key={social.url}
-                    href={social.url}
+                    to={social.url}
                     target="_blank" rel="noreferrer"
                   >
                     <FontAwesomeIcon icon={social.icon} size='2x' />
-                  </a>
+                  </Link>
                 ))
               }
             </HStack>
@@ -95,20 +111,20 @@ const Header = () => {
             <HStack spacing={6}>
               {/* Add links based on the `links` data */
                 links.map((link) => (
-                  <a
+                  <Link
                     key={link.url}
-                    href={`/#${link.url}`}
+                    to={`/#${link.url}`}
                     onClick={handleClick(link.url)}
                   >
                     {link.text}
-                  </a>
+                  </Link>
                 ))
               }
             </HStack>
           </nav>
         </HStack>
-      </Box>
-    </Box>
+      </Box >
+    </Box >
   );
 };
 export default Header;
