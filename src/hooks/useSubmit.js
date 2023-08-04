@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -12,6 +12,7 @@ const useSubmit = () => {
 
   const submit = async (url, data) => {
     const random = Math.random();
+
     setLoading(true);
     try {
       await wait(2000);
