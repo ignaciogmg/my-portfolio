@@ -41,7 +41,7 @@ const ContactMeSection = () => {
   });
 
   useEffect(() => {
-    response ? console.log(onOpen(response.type, response.message)) : null
+    response ? onOpen(response.type, response.message) : null
     response && response.type === "success" ? formik.resetForm() : null
   }, [response]);
 
@@ -107,7 +107,7 @@ const ContactMeSection = () => {
                   {isInvalid && formik.errors.comment}{formik.errors.comment}
                 </FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="purple" width="full">
+              <Button type="submit" colorScheme="purple" width="full" isDisabled={!(formik.isValid && formik.dirty)}>
                 {isLoading ? "Loading..." : "Submit"}
               </Button>
             </VStack>
