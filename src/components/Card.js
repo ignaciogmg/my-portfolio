@@ -15,9 +15,6 @@ const Card = ({ title, description, imageSrc }) => {
       borderRadius="xl"
       borderWidth="1px"
       borderColor="gray.800"
-    // _hover={{
-    //   borderColor: "gray.500",
-    // }}
     >
       <Image
         src={imageSrc}
