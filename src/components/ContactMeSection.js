@@ -107,7 +107,7 @@ const ContactMeSection = () => {
                   {isInvalid && formik.errors.comment}{formik.errors.comment}
                 </FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="purple" width="full" isDisabled={!(formik.isValid && formik.dirty)}>
+              <Button type="submit" colorScheme="purple" width="full" isDisabled={!(formik.isValid && formik.dirty)} isLoading={isLoading}>
                 {isLoading ? "Loading..." : "Submit"}
               </Button>
             </VStack>
